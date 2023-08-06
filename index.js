@@ -13,8 +13,9 @@ app.use(express.static('public'))
 
 // //  db connection function
     // db connection 
+    const conn = process.env.MONGO_URL;
     // const conn = "mongodb://localhost:27017/execrise-tracker";
-    const conn = "mongodb+srv://blog123:blog123@cluster0.x6chg7g.mongodb.net/execrise-tracker?retryWrites=true&w=majority";
+    // const conn = "mongodb+srv://blog123:blog123@cluster0.x6chg7g.mongodb.net/execrise-tracker?retryWrites=true&w=majority";
     mongoose.connect(conn, { useNewUrlParser: true, useUnifiedTopology: true } )
     .then(() => {
         const listener = app.listen(process.env.PORT || 3000, () => {
@@ -52,6 +53,7 @@ app.post('/api/users',async (req, res) => {
     })
     // saving the user
     const userSaved = await newUserName.save()
+    console.log(userSaved)
       res.json({ username: userName, _id: userSaved._id})
   } catch (error) {
     console.log(error);
